@@ -3,15 +3,15 @@ import jwt from "jsonwebtoken";
 
 const JWT_KEY = "abcdefghijklmnopqrstuvwxyz";
 
-export const passwordEncrytion = async (password: string) => {
+export const passwordEncrytion = async (password: string): Promise<string> => {
     const salt = await bcrypt.genSalt(8);
     return bcrypt.hash(password, salt);
 }
-export const passwordDecryption = async (password: string, storedPassword: string) => {
+export const passwordDecryption = (password: string, storedPassword: string): Promise<boolean> => {
     return bcrypt.compare(password, storedPassword);
 }
 
-export const generateToken = (data: object) => {
+export const generateToken = (data: object): string => {
     return jwt.sign(data, JWT_KEY);
 }
 
